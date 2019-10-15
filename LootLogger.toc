@@ -1,0 +1,8 @@
+## Interface: 70200
+## Author: Fleyy
+## Version: 0.1
+## Title: |cff1784d1ElvUI|r |cff00b3ffLootLogger|r
+## Notes: LootLogger
+## RequiredDeps: ElvUI
+
+LootLogger.lua
