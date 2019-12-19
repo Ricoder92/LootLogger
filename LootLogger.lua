@@ -1,5 +1,10 @@
 
- -- ElvUI Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+-- libs
+local LibStub = LibStub
+local AceGUI = LibStub("AceGUI-3.0")
+local LootLogger = LibStub("AceAddon-3.0"):NewAddon("LootLogger", "AceConsole-3.0")
+
+-- ElvUI Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local E, L, V, P, G = unpack(ElvUI);
 
  -- ElvUI Skin Import
@@ -23,6 +28,35 @@ option['list_anmount'] = 20
 option['list_height_line'] = 16
 option['button_height'] = 24
 local i = 0;
+
+
+
+function LootLogger:OnInitialize()
+	print('Addon init')
+end
+
+function LootLogger:OnEnable()
+    print('Addon enabled')
+end
+
+function LootLogger:OnDisable()
+    -- Called when the addon is disabled
+end
+
+
+LootLogger:RegisterChatCommand("myslash", "MySlashProcessorFunc")
+
+function LootLogger:MySlashProcessorFunc(input)
+	print('Hello World')
+end
+
+local LL = AceGUI:Create("LootLoggerMainContainer")
+LL:SetTitle('LootLogger')
+
+local SFLL = AceGUI:Create("LootLoggerScrollFrameContainer", nil, LL)
+SFLL:SetTitle('Hallo :)')
+
+
 
 --title frame
 local tf = CreateFrame("Frame", "LootLooger_MainFrame", UIParent)
@@ -48,6 +82,7 @@ local frame = CreateFrame("Frame", "MyFrame", tf)
 frame:SetSize(option['default_width']-19, (option['list_anmount'] * option['list_height_line']) + 20) 
 frame:Point("TOPLEFT", tf, "TOPLEFT", 0, -(option['button_height']+2)) 
 frame:SetTemplate('Transparent')
+
 
 --scrollframe 
 scrollframe = CreateFrame("ScrollFrame", nil, frame) 
@@ -92,7 +127,7 @@ lootevent:SetScript("OnEvent", function(self, event, msg)
 		quantity = 1
 	end
 
-	local itemID = ItemStringToItemID(itemLink)
+
 	addToList(itemLink, quantity, itemID)
 	--addToList(itemLink.."x"..quantity.." - "..MoneyToString(GetItemValue(itemID, 'dbminbuyout')*quantity))
 
@@ -230,7 +265,8 @@ function addToList(itemLink, quantity, itemID)
 		scrollbar:SetMinMaxValues(1,content:GetHeight())
 		scrollbar:SetValue(content:GetHeight())
 	end
-	
+
+
 
 	print("Scrollframe Height:"..content:GetHeight())
 	print("Scrollframe Width:"..content:GetWidth())
